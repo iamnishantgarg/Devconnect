@@ -1,4 +1,5 @@
 {
   "mongoURI": "mongodb+srv://owner:dbowner@cluster0-hfi0g.mongodb.net/Devconnect?retryWrites=true&w=majority",
-  "mongoLocal": "mongodb://localhost/devconnect"
+  "mongoLocal": "mongodb://localhost/devconnect",
+  "jwtsecret": "jgweiogjwiojfqoiewklvdi"
 }
