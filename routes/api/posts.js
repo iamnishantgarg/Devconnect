@@ -4,8 +4,6 @@ const Post = require("../../models/Post");
 const { check, validationResult } = require("express-validator");
 const auth = require("../../middleware/auth");
 const User = require("../../models/User");
-const { text } = require("express");
-const { route } = require("./users");
 
 //@route    POST /api/posts
 //@desc     Create a post
@@ -93,6 +91,71 @@ router.delete("/:post_id", auth, async (req, res) => {
     if (err.kind === "ObjectId")
       return res.status("404").json({ msg: "No post found" });
     return res.status(500).send("server error");
+  }
+});
+
+//@route    PUT /api/posts/like/:id
+//@desc     Like a post
+//@access   Private
+
+router.put("/like/:id", auth, async (req, res) => {
+  try {
+    const post = await Post.findById(req.params.id);
+    if (!post) {
+      return res.status(404).json({ msg: "No post found " });
+    }
+    //check if post is already liked
+    if (
+      post.likes.filter((like) => {
+        return like.user.toString() === req.user.id;
+      }).length > 0
+    ) {
+      return res.status(400).json({ msg: "Post is already liked" });
+    }
+    post.likes.unshift({ user: req.user.id });
+    await post.save();
+    return res.json(post.likes);
+  } catch (err) {
+    console.log(err.message);
+    if (err.kind === "ObjectId") {
+      return res.status(404).json({ msg: "No post found " });
+    }
+    return res.status(500).send("Server Error");
+  }
+});
+
+//@route    PUT /api/posts/unlike/:id
+//@desc     Unlike a post
+//@access   Private
+
+router.put("/unlike/:id", auth, async (req, res) => {
+  try {
+    const post = await Post.findById(req.params.id);
+    if (!post) {
+      return res.status(404).json({ msg: "No post found " });
+    }
+    //check if post is not liked
+    if (
+      post.likes.filter((like) => {
+        return like.user.toString() === req.user.id;
+      }).length == 0
+    ) {
+      return res.status(400).json({ msg: "Post is not liked by the user" });
+    }
+
+    const removeIndex = post.likes
+      .map((like) => like.user._id.toString())
+      .indexOf(req.user.id);
+    post.likes.splice(removeIndex, 1);
+
+    await post.save();
+    return res.json(post.likes);
+  } catch (err) {
+    console.log(err.message);
+    if (err.kind === "ObjectId") {
+      return res.status(404).json({ msg: "No post found " });
+    }
+    return res.status(500).send("Server Error");
   }
 });
 
