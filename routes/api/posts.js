@@ -1,11 +1,55 @@
 const express = require("express");
 const router = express.Router();
+const Post = require("../../models/Post");
+const { check, validationResult } = require("express-validator");
+const auth = require("../../middleware/auth");
+const User = require("../../models/User");
+const { text } = require("express");
+
+//@route    POST /api/posts
+//@desc     Create a post
+//@access   Private
+router.post(
+  "/",
+  auth,
+  [check("text", "Text is required").not().isEmpty()],
+  async (req, res) => {
+    console.log("heekfweeio");
+
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+    try {
+      const user = await User.findOne({ _id: req.user.id }).select("-password");
+
+      const newPost = new Post({
+        text: req.body.text,
+        name: user.name,
+        avatar: user.avatar,
+        user: req.user.id,
+      });
+      // const post = new Post(newPost);
+      await newPost.save();
+      return res.json(newPost);
+    } catch (err) {
+      console.log(err.message);
+      return res.status(500).send("Server Error");
+    }
+  }
+);
 
 //@route    GET /api/posts
-//@desc     Test Route
-//@access   Public
-router.get("/", (req, res) => {
-  return res.send("Post router");
+//@desc     Get all posts
+//@access   Private
+router.get("/", auth, async (req, res) => {
+  try {
+    const posts = await Post.find().sort({ date: -1 });
+    return res.json(posts);
+  } catch (err) {
+    console.log(err.message);
+    return res.status(500).send("Server Error");
+  }
 });
 
 module.exports = router;
