@@ -5,6 +5,7 @@ const { check, validationResult } = require("express-validator");
 const auth = require("../../middleware/auth");
 const User = require("../../models/User");
 const { text } = require("express");
+const { route } = require("./users");
 
 //@route    POST /api/posts
 //@desc     Create a post
@@ -49,6 +50,49 @@ router.get("/", auth, async (req, res) => {
   } catch (err) {
     console.log(err.message);
     return res.status(500).send("Server Error");
+  }
+});
+
+//@route    GET /api/posts/:post_id
+//@desc     Get post by id
+//@access   Private
+router.get("/:post_id", auth, async (req, res) => {
+  try {
+    const post = await Post.findById(req.params.post_id);
+    if (!post) {
+      return res.status(404).json({ msg: "No post found" });
+    }
+    return res.json(post);
+  } catch (err) {
+    console.log(err.message);
+    if (err.kind === "ObjectId") {
+      return res.status(404).json({ msg: "No post found" });
+    }
+
+    return res.status(500).send("Server Error");
+  }
+});
+
+//@route    DELETE /api/posts/:post_id
+//@desc     Delete post by id
+//@access   Private
+router.delete("/:post_id", auth, async (req, res) => {
+  try {
+    // await Post.findByIdAndRemove(req.params.post_id);
+    const post = await Post.findById(req.params.post_id);
+    if (!post) {
+      return res.status(404).json({ msg: "No post found " });
+    }
+    //check user
+    if (post.user.toString() !== req.user.id)
+      return res.status(401).json({ msg: "User not Authorized" });
+    await post.remove();
+    return res.json({ msg: "Post Deleted" });
+  } catch (err) {
+    console.log(err.message);
+    if (err.kind === "ObjectId")
+      return res.status("404").json({ msg: "No post found" });
+    return res.status(500).send("server error");
   }
 });
 
