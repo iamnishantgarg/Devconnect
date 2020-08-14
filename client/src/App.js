@@ -12,6 +12,8 @@ import store from "./store";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "./App.css";
 import setAuthToken from "./utils/setAuthToken";
+import Dashboard from "./components/dashboard/Dashboard";
+import PrivateRoute from "./components/routing/PrivateRoute";
 
 if (localStorage.token) {
   setAuthToken(localStorage.getItem("token"));
@@ -32,6 +34,7 @@ function App() {
             <Switch>
               <Route path="/register" exact component={Register} />
               <Route path="/login" exact component={Login} />
+              <PrivateRoute path="/dashboard" component={Dashboard} exact />
             </Switch>
           </section>
         </Fragment>
