@@ -1,5 +1,5 @@
 import { PROFILE_ERROR, GET_PROFILE } from "./types";
-import { setAlert } from "./alert";
+// import { setAlert } from "./alert";
 import axios from "axios";
 
 //Get current user prfile
