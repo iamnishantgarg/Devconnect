@@ -42,7 +42,7 @@ const EditProfile = ({
       instagram: loading || !profile.social ? "" : profile.social.instagram,
       youtube: loading || !profile.social ? "" : profile.social.youtube,
     });
-  }, [loading]);
+  }, [loading, getCurrentProfile, profile]);
 
   const {
     company,
@@ -230,9 +230,12 @@ const EditProfile = ({
           </Fragment>
         )}
         <input type="submit" className="btn btn-primary my-1" />
-        <a className="btn btn-light my-1" href="dashboard.html">
+        <button
+          className="btn btn-light my-1"
+          onClick={() => history.push("/dashboard")}
+        >
           Go Back
-        </a>
+        </button>
       </form>
     </Fragment>
   );
