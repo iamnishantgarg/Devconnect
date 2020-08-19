@@ -13,6 +13,9 @@ function Navbar({ logout, auth: { isAuthenticated, loading } }) {
         </Link>
       </li>
       <li>
+        <Link to="/profiles">Developers</Link>
+      </li>
+      <li>
         <a onClick={logout} href="#!">
           <i className="fas fa-sign-out-alt "></i>{" "}
           <span className="hide-sm">Logout</span>
@@ -25,7 +28,6 @@ function Navbar({ logout, auth: { isAuthenticated, loading } }) {
       <li>
         <Link to="/profiles">Developers</Link>
       </li>
-
       <li>
         <Link to="/register">Register</Link>
       </li>
