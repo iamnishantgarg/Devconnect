@@ -8,6 +8,7 @@ import ProfileTop from "./ProfileTop";
 import ProfileAbout from "./ProfileAbout";
 import ProfileExperience from "./ProfileExperience";
 import ProfileEducation from "./ProfileEducation";
+import ProfileGithub from "./ProfileGithub";
 const Profile = ({
   profile: { profile, loading },
   getProfileById,
@@ -33,11 +34,11 @@ const Profile = ({
                 Edit profile
               </Link>
             )}
-          <div class="profile-grid my-1">
+          <div className="profile-grid my-1">
             <ProfileTop profile={!loading && profile} />
             <ProfileAbout profile={!loading && profile} />
             <div className="profile-exp bg-white p-2">
-              <h2 class="text-primary">Experience</h2>
+              <h2 className="text-primary">Experience</h2>
               {profile.experience.length > 0 ? (
                 <Fragment>
                   {profile.experience.map((exp) => (
@@ -49,7 +50,7 @@ const Profile = ({
               )}
             </div>
             <div className="profile-edu bg-white p-2">
-              <h2 class="text-primary">Education</h2>
+              <h2 className="text-primary">Education</h2>
               {profile.education.length > 0 ? (
                 <Fragment>
                   {profile.education.map((edu) => (
@@ -60,6 +61,9 @@ const Profile = ({
                 <h4>No education credetials</h4>
               )}
             </div>
+            {profile.githubusername && (
+              <ProfileGithub username={profile.githubusername} />
+            )}
           </div>
         </Fragment>
       )}
