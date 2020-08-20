@@ -6,6 +6,7 @@ import Register from "./components/auth/Register";
 import Alert from "./components/layout/Alert";
 import { loadUser } from "./actions/auth";
 import Profiles from "./components/profiles/Profiles";
+import Profile from "./components/profile/Profile";
 //redux
 import { Provider } from "react-redux";
 import store from "./store";
@@ -40,6 +41,7 @@ function App() {
               <Route path="/register" exact component={Register} />
               <Route path="/login" exact component={Login} />
               <Route path="/profiles" exact component={Profiles} />
+              <Route path="/profile/:id" exact component={Profile} />
               <PrivateRoute
                 path="/create-profile"
                 exact
