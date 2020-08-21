@@ -15,8 +15,8 @@ const ProfileGithub = ({ getGithubRepos, username, repos }) => {
       {repos == null ? (
         <Spinner />
       ) : (
-        repos.map((repo) => (
-          <div key={repo._id} className="repo bg-white p-1 my-1">
+        repos.map((repo, ind) => (
+          <div key={ind} className="repo bg-white p-1 my-1">
             <div>
               <h4>
                 <a

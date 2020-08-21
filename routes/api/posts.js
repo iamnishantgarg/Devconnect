@@ -13,10 +13,12 @@ router.post(
   auth,
   [check("text", "Text is required").not().isEmpty()],
   async (req, res) => {
-    console.log("heekfweeio");
+    //console.log("heekfweeio");
 
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
+      console.log(req.body);
+      console.log(errors.array());
       return res.status(400).json({ errors: errors.array() });
     }
     try {
