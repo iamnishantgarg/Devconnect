@@ -8,6 +8,7 @@ import { loadUser } from "./actions/auth";
 import Profiles from "./components/profiles/Profiles";
 import Profile from "./components/profile/Profile";
 import Posts from "./components/posts/Posts";
+import Post from "./components/post/Post";
 //redux
 import { Provider } from "react-redux";
 import store from "./store";
@@ -65,6 +66,7 @@ function App() {
               />
               <PrivateRoute path="/posts" exact component={Posts} />
               <PrivateRoute path="/dashboard" component={Dashboard} exact />
+              <PrivateRoute path="/post/:id" component={Post} exact />
             </Switch>
           </section>
         </Fragment>
