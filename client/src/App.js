@@ -7,6 +7,7 @@ import Alert from "./components/layout/Alert";
 import { loadUser } from "./actions/auth";
 import Profiles from "./components/profiles/Profiles";
 import Profile from "./components/profile/Profile";
+import Posts from "./components/posts/Posts";
 //redux
 import { Provider } from "react-redux";
 import store from "./store";
@@ -62,6 +63,7 @@ function App() {
                 component={AddEducation}
                 exact
               />
+              <PrivateRoute path="/posts" exact component={Posts} />
               <PrivateRoute path="/dashboard" component={Dashboard} exact />
             </Switch>
           </section>
