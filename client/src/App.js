@@ -9,6 +9,7 @@ import Profiles from "./components/profiles/Profiles";
 import Profile from "./components/profile/Profile";
 import Posts from "./components/posts/Posts";
 import Post from "./components/post/Post";
+import NotFound from "./components/layout/NotFound";
 //redux
 import { Provider } from "react-redux";
 import store from "./store";
@@ -67,6 +68,7 @@ function App() {
               <PrivateRoute path="/posts" exact component={Posts} />
               <PrivateRoute path="/dashboard" component={Dashboard} exact />
               <PrivateRoute path="/post/:id" component={Post} exact />
+              <Route component={NotFound} />
             </Switch>
           </section>
         </Fragment>
