@@ -47,7 +47,7 @@
 
 ## Repos:
 
-- Fetching the lastest repos from the developers github repository.
+- Fetching the latest repos from the developers github profile.
 
   <img src="./img/repos.png" />
 
