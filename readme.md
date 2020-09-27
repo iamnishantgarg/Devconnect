@@ -7,6 +7,7 @@
 ## Home:
 
 - Basic home page enables you to view profile without registering.
+
   <img src="./img/home.png" />
 
 ## Login Page:
@@ -21,6 +22,7 @@
 
 - Edit education,experience and profile information.
 - Manage your Experience from here.
+
   <img src="./img/dashboard.png" />
 
 ## Posts:
@@ -28,21 +30,25 @@
 - All the posts posted by developers.
 - Like and comment functionality.
 - Add your own post.
+
   <img src="./img/posts.png" />
 
 ## Developers:
 
 - See all the developers present on Devconnect.
+
   <img src="./img/developers.png" />
 
 ## Profile:
 
 - See the profile of a single developer.
+
   <img src="./img/profile.png" />
 
 ## Repos:
 
 - Fetching the lastest repos from the developers github repository.
+
   <img src="./img/repos.png" />
 
 # Technology:
